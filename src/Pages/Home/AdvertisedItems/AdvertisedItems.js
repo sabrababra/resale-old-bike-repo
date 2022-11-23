@@ -1,9 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AdvertisedItems = () => {
     const num = [1, 2, 3, 4]
     return (
-        <div className='grid mt-8 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+        
+       <div className='w-10/12 mx-auto my-5 pt-12'>
+        <div className='flex justify-between items-center'>
+            <h1 className='text-4xl text-primary font-semibold mb-5'>Advertised Products</h1>
+            {/* <Link to='/' className='btn btn-primary'>All Products</Link> */}
+            </div>
+         <div className='grid mt-8 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {
                 num.map(item => <>
                     <div className="card bg-base-100 shadow-xl ">
@@ -20,6 +27,7 @@ const AdvertisedItems = () => {
             }
 
         </div>
+       </div>
     );
 };
 
