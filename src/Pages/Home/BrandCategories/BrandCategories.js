@@ -7,25 +7,25 @@ import BrandData from './BrandData';
 const BrandCategories = () => {
     const brandCategory=[
         {
-            id:1,
+            _id:1,
             brandName:'Honda',
             img:honda,
             amount:4
         },
         {
-            id:2,
+            _id:2,
             brandName:'Sujuki',
             img:sujuki,
             amount:2
         },
         {
-            id:3,
+            _id:3,
             brandName:'Yamaha',
             img:yamaha,
             amount:4
         },
         {
-            id:4,
+            _id:4,
             brandName:'Vespa',
             img:vespa,
             amount:2
