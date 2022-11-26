@@ -5,36 +5,37 @@ import Category from "../../Pages/Category/Category";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../Pages/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
-export const router=createBrowserRouter([
+export const router = createBrowserRouter([
     {
-        path:'/',
-        element:<Main></Main>,
-        children:[
+        path: '/',
+        element: <Main></Main>,
+        children: [
             {
-                path:'/',
-                element:<Home></Home>
+                path: '/',
+                element: <Home></Home>
             },
             {
-                path:'/home',
-                element:<Home></Home>
+                path: '/home',
+                element: <Home></Home>
             },
             {
-                path:'/blogs',
-                element:<Blogs></Blogs>
+                path: '/blogs',
+                element: <Blogs></Blogs>
             },
             {
-                path:'/login',
-                element:<Login></Login>
+                path: '/login',
+                element: <Login></Login>
             },
             {
-                path:'/signup',
-                element:<SignUp></SignUp>
+                path: '/signup',
+                element: <SignUp></SignUp>
             },
             {
-                path:'/category/:name',
-                element:<Category/>
+                path: '/category/:name',
+                element: <PrivateRoute><Category /></PrivateRoute>
             }
         ]
     }

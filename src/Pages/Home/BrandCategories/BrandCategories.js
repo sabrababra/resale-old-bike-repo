@@ -14,7 +14,7 @@ const BrandCategories = () => {
         },
         {
             _id:2,
-            brandName:'Sujuki',
+            brandName:'Suzuki',
             img:sujuki,
             amount:2
         },
