@@ -31,6 +31,7 @@ const BrandCategories = () => {
             amount:2
         },
     ]
+
     return (
         <div className='mt-10'>
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-5 w-11/12 lg:w-10/12 mx-auto my-6'>

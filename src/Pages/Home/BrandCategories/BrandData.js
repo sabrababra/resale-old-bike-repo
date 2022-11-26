@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BrandData = ({ brand }) => {
     const { brandName, img, amount } = brand;
@@ -11,7 +12,7 @@ const BrandData = ({ brand }) => {
                 <h2 className="card-title">{brandName}</h2>
                 <p>{amount} {amount?.length>1?'products':'product'} available</p>
                 <div className="card-actions">
-                    <button className="btn btn-primary">See Products</button>
+                    <Link to={`/category/${brandName}`} className="btn btn-primary">See Products</Link>
                 </div>
             </div>
         </div>
