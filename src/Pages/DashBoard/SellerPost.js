@@ -33,34 +33,18 @@ const SellerPost = () => {
             });
     };
 
-    const handleAdvertise = (item) => {
-        console.log(item);
+    const handleAdvertise = (id) => {
+        console.log(id);
 
         if (user?.email) {
-            const productData = {
-                name: item.name,
-                img: item.img,
-                category: item.category,
-                location: item.location,
-                resalePrice: item.resalePrice,
-                originalPrice: item.originalPrice,
-                UsedYears: item.UsedYears,
-                postedTime: item?.postedTime,
-                condition: item.condition,
-                description: item.description,
-                status: item?.status,
-                sellerPhone: item?.sellerPhone,
-                sellerName: item?.sellerName,
-                sellerEmail: item?.sellerEmail,
-                isSellerVerify: item?.isSellerVerify,
-            }
+            const updateDate = {ads: true}
 
-            fetch('http://localhost:5000/addAdvertise', {
-                method: 'POST',
+            fetch(`http://localhost:5000/addAdvertise/${id}`, {
+                method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(productData)
+                body: JSON.stringify(updateDate)
             })
                 .then(res => res.json())
                 .then(data => {
@@ -102,10 +86,10 @@ const SellerPost = () => {
                                     <td>{item?.resalePrice}</td>
                                     <td>
                                         {
-                                            (item?.status === "Available") ?
-                                                <button className="btn btn-error btn-sm" onClick={() => handleAdvertise(item)}>Add to Advertise </button>
-                                                :
-                                                <p>{item?.status}</p>
+                                            // (item?.status === "Available") ?
+                                                <button className="btn btn-error btn-sm" onClick={() => handleAdvertise(item?._id)}>Add to Advertise </button>
+                                                // :
+                                                // <p>{item?.status}</p>
                                         }
 
                                     </td>

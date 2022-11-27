@@ -3,6 +3,7 @@ import './App.css';
 import { router } from './Routes/Routes/Routes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "swiper/css/bundle";
 
 function App() {
   return (
