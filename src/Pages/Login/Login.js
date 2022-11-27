@@ -6,11 +6,11 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
-    const [role, setRole] = useState('seller');
+    const [role, setRole] = useState('buyer');
 
     const from = location.state?.from?.pathname || '/';
 
@@ -29,18 +29,22 @@ const Login = () => {
                 };
 
                 console.log(loginData);
-                fetch('http://localhost:5000/user', {
-                    method: 'PUT',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(loginData)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        navigate(from, { replace: true });
-                    });
+
+                if (user?.email) {
+                    fetch(`http://localhost:5000/user/${user?.email}`, {
+                        method: 'PUT',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(loginData)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            localStorage.setItem('token', data.token)
+                            console.log(data);
+                            navigate(from, { replace: true });
+                        })
+                }
             })
             .catch(error => {
                 console.log(error.message)
@@ -50,6 +54,39 @@ const Login = () => {
 
 
     }
+
+    const handleGoogle = () => {
+
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                if (user?.email) {
+                    const loginData = {
+                        userName: user?.displayName,
+                        email: user?.email,
+                        role: 'buyer'
+                    };
+                    fetch(`http://localhost:5000/user/${user?.email}`, {
+                        method: 'PUT',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(loginData)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            localStorage.setItem('token', data.token)
+                            console.log(data);
+                            navigate(from, { replace: true });
+                        })
+                }
+            })
+            .catch(err => console.error(err));
+
+
+    }
+
     return (
         <div className="flex gap-5  min-h-screen bg-base-200  flex-col justify-center items-center">
 
@@ -114,7 +151,10 @@ const Login = () => {
                 </form>
                 <p>New to Resale Bike <Link className='text-secondary' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE (only for seller)</button>
+
+                <button className='btn btn-outline w-full'
+                    onClick={() => handleGoogle()}>CONTINUE WITH GOOGLE (only for buyer)</button>
+
             </div>
 
         </div>
