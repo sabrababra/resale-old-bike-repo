@@ -33,11 +33,11 @@ const SellerPost = () => {
             });
     };
 
-    const handleAdvertise = (id) => {
+    const handleAddAdvertise = (id) => {
         console.log(id);
 
         if (user?.email) {
-            const updateDate = {ads: true}
+            const updateDate = { ads: true }
 
             fetch(`http://localhost:5000/addAdvertise/${id}`, {
                 method: 'PUT',
@@ -49,6 +49,29 @@ const SellerPost = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
+                    getData();
+                    toast.success('Added to Advertise successfully');
+                });
+        }
+    };
+
+    const handleRemoveAdvertise = (id) => {
+        console.log(id);
+
+        if (user?.email) {
+            const updateDate = { ads: false }
+
+            fetch(`http://localhost:5000/addAdvertise/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(updateDate)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    getData();
                     toast.success('Added to Advertise successfully');
                 });
         }
@@ -70,6 +93,7 @@ const SellerPost = () => {
                                 <th>Price</th>
                                 <th>Status</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,14 +108,15 @@ const SellerPost = () => {
                                     </td>
                                     <td colSpan={2}>{item?.name}</td>
                                     <td>{item?.resalePrice}</td>
+                                    <td>{item?.status}</td>
                                     <td>
-                                        {
-                                            // (item?.status === "Available") ?
-                                                <button className="btn btn-error btn-sm" onClick={() => handleAdvertise(item?._id)}>Add to Advertise </button>
-                                                // :
-                                                // <p>{item?.status}</p>
+                                        {item?.status !== 'Sold' && <> {
+                                            (item?.status === 'Available' && item?.ads) ? <button className="btn btn-error btn-sm" onClick={() => handleRemoveAdvertise(item?._id)}>Remove Advertise </button>
+                                                :
+                                                <button className="btn btn-info btn-sm" onClick={() => handleAddAdvertise(item?._id)}>Add to Advertise </button>
                                         }
-
+                                        </>
+                                        }
                                     </td>
                                     <td>
                                         <button className="btn btn-error btn-sm" onClick={() => handleDelete(item?._id)}>Delete</button>
@@ -106,7 +131,7 @@ const SellerPost = () => {
                     <div className='min-h-[50vh] text-2xl flex justify-center items-center'>You did not add any product</div>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

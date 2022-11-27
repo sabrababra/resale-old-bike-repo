@@ -56,6 +56,8 @@ const SignUp = () => {
                                     navigate(from, { replace: true });
                                 })
                         }
+                        toast.message('User Created Successfully.');
+                        navigate(from, { replace: true });
                     })
                     .catch(err => console.log(err));
             })

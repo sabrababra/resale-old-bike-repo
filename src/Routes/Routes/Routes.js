@@ -3,7 +3,8 @@ import Main from "../../Layout/Main";
 import Blogs from "../../Pages/Blogs/Blogs";
 import Category from "../../Pages/Category/Category";
 import AddProduct from "../../Pages/DashBoard/AddProduct";
-import AllUser from "../../Pages/DashBoard/AllUser";
+import AllBuyer from "../../Pages/DashBoard/AllBuyer";
+import AllSeller from "../../Pages/DashBoard/AllSeller";
 import Booking from "../../Pages/DashBoard/Booking";
 import Buyer from "../../Pages/DashBoard/Buyer";
 import Dashboard from "../../Pages/DashBoard/DashBoard";
@@ -53,9 +54,13 @@ export const router = createBrowserRouter([
                         index:true,
                         element:<PrivateRoute><MyProfile /></PrivateRoute>
                     },
+                    { 
+                        path:'allSeller',
+                        element:<PrivateRoute><AllSeller></AllSeller></PrivateRoute> 
+                    },
                     {
-                        path:'allUser',
-                        element:<PrivateRoute><AllUser /></PrivateRoute>
+                        path:'allBuyer',
+                        element:<PrivateRoute><AllBuyer></AllBuyer></PrivateRoute>
                         
                     },
                     {

@@ -9,9 +9,7 @@ function App() {
   return (
     <div className=''>
       <ToastContainer />
-      <RouterProvider router={router}>
-
-      </RouterProvider>
+      <RouterProvider router={router} />
     </div>
   );
 }

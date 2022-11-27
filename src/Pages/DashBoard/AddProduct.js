@@ -1,16 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
 import { toast } from 'react-toastify';
 import useUserRole from '../../Hook/useUserRole';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     UseTitle('Add A Product')
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const { user } = useContext(AuthContext);
     const [role] = useUserRole(user);
-
+    const navigate = useNavigate();
 
     const [category, setCategory] = useState('Honda');
     const [condition, setCondition] = useState('Excellent');
@@ -50,6 +51,7 @@ const AddProduct = () => {
                     reset();
                     setCategory('Honda');
                     setCondition('Excellent');
+                    navigate('/dashboard/seller-post')
                     toast.success('Added product successfully');
                 });
         }

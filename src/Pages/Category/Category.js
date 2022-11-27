@@ -18,7 +18,7 @@ const Category = () => {
 
     return (
         <div className='w-11/12 mx-auto min-h-[60vh] flex justify-center items-center'>
-            <div className='grid grid-cols-1 gap-4'>
+            <div className='grid grid-cols-1 gap-4 w-10/12 mx-auto'>
                 {
                     bikes.length > 0 ?
                         bikes.map(bike => <SingleBike key={bike._id} bike={bike} />)

@@ -15,7 +15,7 @@ const Login = () => {
     const navigate = useNavigate();
 
 
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || "/";
 
     const handleLogin = data => {
         console.log(data);
@@ -23,7 +23,6 @@ const Login = () => {
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 if (user?.email) {
                     fetch(`http://localhost:5000/jwt?email=${user?.email}`, {
                         method: 'GET',
@@ -32,14 +31,15 @@ const Login = () => {
                         },
                     })
                         .then(res => res.json())
-                        .then(data => {
-                            localStorage.setItem('token', data.token)
-                            console.log(data);
-                            toast.message('Login Successfully.');
-                            navigate(from, { replace: true });
+                        .then(fData => {
+                            if (fData?.accessToken) {
+                                console.log('token',fData);
+                                localStorage.setItem('token', fData.accessToken)
+                            }
                         })
                 }
-
+                navigate(from, { replace: true });
+                toast.message('Login Successfully.');
             })
             .catch(error => {
                 console.log(error.message)
@@ -74,9 +74,11 @@ const Login = () => {
                         .then(data => {
                             localStorage.setItem('token', data.token)
                             console.log(data);
-                            navigate(from, { replace: true });
+                            // navigate(from, { replace: true });
                         })
                 }
+                toast.message('Login Successfully.');
+                navigate(from, { replace: true });
             })
             .catch(err => console.error(err));
 
