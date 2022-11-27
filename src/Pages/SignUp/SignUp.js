@@ -34,7 +34,8 @@ const SignUp = () => {
                         const loginData = {
                             userName: user?.displayName,
                             email: user?.email,
-                            role: role
+                            role: role,
+                            isSellerVerify: false,
                         };
 
                         console.log(loginData);
@@ -74,7 +75,8 @@ const SignUp = () => {
                     const loginData = {
                         userName: user?.displayName,
                         email: user?.email,
-                        role: 'buyer'
+                        role: 'buyer',
+                        isSellerVerify: false,
                     };
                     fetch(`http://localhost:5000/user/${user?.email}`, {
                         method: 'PUT',

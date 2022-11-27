@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const SingleBike = ({ bike }) => {
     const { user } = useContext(AuthContext);
-    const { _id, name, img, category, location, resalePrice, originalPrice, UsedYears, postedTime, sellerName, isSellerVerify, sellerEmail } = bike;
+    const { _id, name, img, category, location, resalePrice, originalPrice, UsedYears, postedTime, sellerName, isSellerVerify, sellerEmail, status,description,condition } = bike;
 
 
     const handleFormSubmit = (e) => {
@@ -28,7 +28,7 @@ const SingleBike = ({ bike }) => {
             sellerName: sellerName,
             sellerEmail: sellerEmail,
         }
-        
+
         fetch('http://localhost:5000/addBooking', {
             method: 'POST',
             headers: {
@@ -114,7 +114,11 @@ const SingleBike = ({ bike }) => {
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{name}</h2>
-                    <p><span className=' font-semibold'>Category:</span> {category}</p>
+                    <div className='grid grid-cols-2'>
+                        <p><span className=' font-semibold'>Category:</span> {category}</p>
+                        <p><span className=' font-semibold'>Status:</span> {status}</p>
+                        <p><span className=' font-semibold'>Condition:</span> {condition}</p>
+                    </div>
                     <p><span className=' font-semibold'>Location:</span> {location}</p>
                     <hr />
                     <div className='grid grid-cols-2'>
@@ -122,6 +126,7 @@ const SingleBike = ({ bike }) => {
                         <p><span className=' font-semibold'>Original Price:</span> {originalPrice}</p>
                     </div>
                     <p><span className=' font-semibold'>Years of used:</span> {UsedYears}</p>
+                    <p><span className=' font-semibold'>Description:</span> {description}</p>
                     <hr />
                     <div className="card-actions justify-between items-center">
                         <div>

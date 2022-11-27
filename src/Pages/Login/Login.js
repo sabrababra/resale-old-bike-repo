@@ -13,7 +13,7 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
-    
+
 
     const from = location.state?.from?.pathname || '/';
 
@@ -39,7 +39,7 @@ const Login = () => {
                             navigate(from, { replace: true });
                         })
                 }
-                
+
             })
             .catch(error => {
                 console.log(error.message)
@@ -60,7 +60,8 @@ const Login = () => {
                     const loginData = {
                         userName: user?.displayName,
                         email: user?.email,
-                        role: 'buyer'
+                        role: 'buyer',
+                        isSellerVerify: false,
                     };
                     fetch(`http://localhost:5000/user/${user?.email}`, {
                         method: 'PUT',

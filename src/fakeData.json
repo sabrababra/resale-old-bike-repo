@@ -11,6 +11,7 @@
       "sellerName": "Apu saha",
       "isSellerVerify": true,
       "sellerEmail": "apu@mail.com",
+      "status":"Available",
       "condition":"Good",
       "description":"",
       "sellerPhone":"1101001"
@@ -26,7 +27,10 @@
       "postedTime": "1-12-2021",
       "sellerName": "Mr.Antony",
       "isSellerVerify": false,
-      "sellerEmail": "antony@mail.com"
+      "sellerEmail": "antony@mail.com",
+      "condition":"Excellent",
+      "description":"",
+      "sellerPhone":"0011111222"
     },
     {
       "name": "YAMAHA FZS VERSION 3",
@@ -39,7 +43,10 @@
       "postedTime": "10-05-2022",
       "sellerName": "Mr.Albert",
       "isSellerVerify": false,
-      "sellerEmail": "albert@mail.com"
+      "sellerEmail": "albert@mail.com",
+      "condition":"Fair",
+      "description":"",
+      "sellerPhone":"0011111222"
     },
     {
       "name": "Honda Unicorn 150",
@@ -52,7 +59,10 @@
       "postedTime": "11-02-2022",
       "sellerName": "Mr.Antony",
       "isSellerVerify": false,
-      "sellerEmail": "antony@mail.com"
+      "sellerEmail": "antony@mail.com",
+      "condition":"Good",
+      "description":"",
+      "sellerPhone":"1101001"
     },
     {
       "name": "Honda Hornet CBS",
@@ -65,7 +75,10 @@
       "postedTime": "10-04-2022",
       "sellerName": "Mr.Albert",
       "isSellerVerify": false,
-      "sellerEmail": "albert@mail.com"
+      "sellerEmail": "albert@mail.com",
+      "condition":"Excellent",
+      "description":"",
+      "sellerPhone":"0011111222"
     },
     {
       "name": "HONDA CB HORNET 160",
@@ -78,7 +91,10 @@
       "postedTime": "11-12-2021",
       "sellerName": "Apu saha",
       "isSellerVerify": false,
-      "sellerEmail": "apu@mail.com"
+      "sellerEmail": "apu@mail.com",
+      "condition":"Fair",
+      "description":"",
+      "sellerPhone":"0011111222"
     },
     {
       "name": "Suzuki gixxer",
@@ -91,7 +107,10 @@
       "postedTime": "23-03-2022",
       "sellerName": "Apu saha",
       "isSellerVerify": false,
-      "sellerEmail": "apu@mail.com"
+      "sellerEmail": "apu@mail.com",
+      "condition":"Good",
+      "description":"",
+      "sellerPhone":"1101001"
     },
     {
       "name": "Suzuki GSX R 125 cc",
@@ -104,7 +123,10 @@
       "postedTime": "24-05-2022",
       "sellerName": "Mr.Antony",
       "isSellerVerify": false,
-      "sellerEmail": "antony@mail.com"
+      "sellerEmail": "antony@mail.com",
+      "condition":"Excellent",
+      "description":"",
+      "sellerPhone":"0011111222"
     },
     {
       "name": "Suzuki Hayate",
@@ -156,6 +178,9 @@
         "postedTime": "26-04-2021",
         "sellerName": "Apu saha",
         "isSellerVerify": false,
-        "sellerEmail": "apu@mail.com"
+        "sellerEmail": "apu@mail.com",
+        "condition":"Excellent",
+      "description":"",
+      "sellerPhone":"0011111222"
       }
   ]
