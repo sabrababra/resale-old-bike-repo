@@ -1,6 +1,8 @@
 import React from 'react';
 import example from '../../Assets/example.png'
+import UseTitle from '../../Hook/useTitle';
 const Blogs = () => {
+    UseTitle('Blogs');
     return (
         <div className=' min-h-[85vh] flex flex-col items-center justify-center'>
             <div className='w-10/12 mx-auto'>

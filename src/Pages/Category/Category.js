@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import UseTitle from '../../Hook/useTitle';
 import SingleBike from './SingleBike';
 
 const Category = () => {

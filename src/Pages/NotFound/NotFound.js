@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import notFound from '../../Assets/notFound.jpg'
+import UseTitle from '../../Hook/useTitle';
 
 const NotFound = () => {
+    UseTitle('404')
     return (
         <div>
              <div className='flex justify-center items-center min-h-screen'>

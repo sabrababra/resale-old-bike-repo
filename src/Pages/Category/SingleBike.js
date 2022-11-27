@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import UseTitle from '../../Hook/useTitle';
 
 const SingleBike = ({ bike }) => {
     const { user } = useContext(AuthContext);

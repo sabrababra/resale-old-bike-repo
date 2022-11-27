@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import UseTitle from '../../Hook/useTitle';
 
 
 const Login = () => {
+    UseTitle('Login')
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
