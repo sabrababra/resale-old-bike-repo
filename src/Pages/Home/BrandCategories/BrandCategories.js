@@ -2,7 +2,7 @@ import React from 'react';
 import honda from '../../../Assets/honda.png';
 import sujuki from '../../../Assets/suzuki.jpg';
 import yamaha from '../../../Assets/yamaha.jpg';
-import vespa from '../../../Assets/vespa.png';
+import bajaj from '../../../Assets/bajaj.jpg';
 import BrandData from './BrandData';
 const BrandCategories = () => {
     const brandCategory=[
@@ -10,25 +10,25 @@ const BrandCategories = () => {
             _id:1,
             brandName:'Honda',
             img:honda,
-            amount:4
+           // amount:4
         },
         {
             _id:2,
             brandName:'Suzuki',
             img:sujuki,
-            amount:2
+           // amount:2
         },
         {
             _id:3,
             brandName:'Yamaha',
             img:yamaha,
-            amount:4
+            //amount:4
         },
         {
             _id:4,
-            brandName:'Vespa',
-            img:vespa,
-            amount:2
+            brandName:'Bajaj',
+            img:bajaj,
+           // amount:2
         },
     ]
 
