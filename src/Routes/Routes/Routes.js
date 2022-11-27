@@ -9,6 +9,7 @@ import Booking from "../../Pages/DashBoard/Booking";
 import Buyer from "../../Pages/DashBoard/Buyer";
 import Dashboard from "../../Pages/DashBoard/DashBoard";
 import MyProfile from "../../Pages/DashBoard/MyProfile";
+import MyWishList from "../../Pages/DashBoard/MyWishList";
 import SellerPost from "../../Pages/DashBoard/SellerPost";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -66,6 +67,11 @@ export const router = createBrowserRouter([
                     {
                         path:'booking',
                         element:<PrivateRoute><Booking /></PrivateRoute>
+                        
+                    },
+                    {
+                        path:'my-WishList',
+                        element:<PrivateRoute><MyWishList /></PrivateRoute>
                         
                     },
                     {

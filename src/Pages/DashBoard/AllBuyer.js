@@ -20,6 +20,10 @@ const AllBuyers = () => {
         console.log(id);
     }
 
+    const handleDelete = (id) => {
+        console.log(id);
+    }
+
     return (
         <div className='w-11/12 mx-auto'>
             <h1 className='text-white text-center text-3xl font-semibold my-10'>
@@ -34,6 +38,7 @@ const AllBuyers = () => {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,8 +46,11 @@ const AllBuyers = () => {
                                 tableData?.map((item, index) => <tr key={item?._id}>
                                     <td >{index + 1}</td>
                                     <td >{item?.userName}</td>
-                                    <td>{item?.role}</td>
                                     <td>{item?.email}</td>
+                                    <td>{item?.role}</td>
+                                    <td>
+                                        < button className="btn btn-error btn-sm" onClick={() => handleDelete(item?._id)}>Delete</button>
+                                    </td>
                                 </tr>)
                             }
 

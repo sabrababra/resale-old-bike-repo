@@ -20,6 +20,10 @@ const AllSeller = () => {
         console.log(id);
     }
 
+    const handleDelete = (id) => {
+        console.log(id);
+    }
+
     return (
         <div className='w-11/12 mx-auto'>
             <h1 className='text-white text-center text-3xl font-semibold my-10'>
@@ -35,6 +39,7 @@ const AllSeller = () => {
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>verify</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +56,9 @@ const AllSeller = () => {
                                                 :
                                                 < button className="btn btn-error btn-sm" onClick={() => handleVerify(item?._id)}>Verify</button>
                                         }
+                                    </td>
+                                    <td>
+                                        < button className="btn btn-error btn-sm" onClick={() => handleDelete(item?._id)}>Delete</button>
                                     </td>
                                 </tr>)
                             }

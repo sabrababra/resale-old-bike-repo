@@ -14,6 +14,7 @@ const SideNav = () => {
             {
                 role.role === 'buyer' && <>
                     <li><Link to='booking'>My orders</Link></li>
+                    <li><Link to='my-WishList'>My WishList</Link></li>
                 </>
             }
             {
