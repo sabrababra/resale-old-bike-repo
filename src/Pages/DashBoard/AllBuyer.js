@@ -8,7 +8,7 @@ const AllBuyers = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/allBuyers?role=buyer`)
+        fetch(`http://localhost:5000/allSellersAndBuyers?role=buyer`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }
@@ -23,7 +23,7 @@ const AllBuyers = () => {
     return (
         <div className='w-11/12 mx-auto'>
             <h1 className='text-white text-center text-3xl font-semibold my-10'>
-                <span className='p-1 border-b-2 border-primary'>All <span className='text-primary'>Seller</span></span>
+                <span className='p-1 border-b-2 border-primary'>All <span className='text-primary'>Seller List</span></span>
             </h1>
             <div className=' w-10/12 mx-auto '>
                 {tableData.length > 0 ? <div className="overflow-x-auto w-full">
@@ -33,7 +33,7 @@ const AllBuyers = () => {
                                 <th></th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>verify</th>
+                                <th>Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,15 +41,8 @@ const AllBuyers = () => {
                                 tableData?.map((item, index) => <tr key={item?._id}>
                                     <td >{index + 1}</td>
                                     <td >{item?.userName}</td>
+                                    <td>{item?.role}</td>
                                     <td>{item?.email}</td>
-                                    <td>
-                                        {
-                                            item?.isSellerVerify ?
-                                                <p>{item?.isSellerVerify}</p>
-                                                :
-                                                < button className="btn btn-error btn-sm" onClick={() => handleVerify(item?._id)}>Verify</button>
-                                        }
-                                    </td>
                                 </tr>)
                             }
 

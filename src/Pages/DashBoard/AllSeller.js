@@ -8,7 +8,7 @@ const AllSeller = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/allBuyers?role=seller`)
+        fetch(`http://localhost:5000/allSellersAndBuyers?role=seller`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }
@@ -23,7 +23,7 @@ const AllSeller = () => {
     return (
         <div className='w-11/12 mx-auto'>
             <h1 className='text-white text-center text-3xl font-semibold my-10'>
-                <span className='p-1 border-b-2 border-primary'>All <span className='text-primary'>Seller</span></span>
+                <span className='p-1 border-b-2 border-primary'>All <span className='text-primary'>Seller List</span></span>
             </h1>
             <div className=' w-10/12 mx-auto '>
                 {tableData.length > 0 ? <div className="overflow-x-auto w-full">
