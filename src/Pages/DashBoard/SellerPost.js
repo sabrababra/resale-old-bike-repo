@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
+import { toast } from 'react-toastify';
 
 const SellerPost = () => {
     UseTitle('My Products');
@@ -18,10 +19,55 @@ const SellerPost = () => {
 
     const handleDelete = (id) => {
         console.log(id);
+        fetch(`http://localhost:5000/deleteAdvertise/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success('Deleted successfully');
+                getData();
+            });
     };
 
     const handleAdvertise = (item) => {
         console.log(item);
+
+        if (user?.email) {
+            const productData = {
+                name: item.name,
+                img: item.img,
+                category: item.category,
+                location: item.location,
+                resalePrice: item.resalePrice,
+                originalPrice: item.originalPrice,
+                UsedYears: item.UsedYears,
+                postedTime: item?.postedTime,
+                condition: item.condition,
+                description: item.description,
+                status: item?.status,
+                sellerPhone: item?.sellerPhone,
+                sellerName: item?.sellerName,
+                sellerEmail: item?.sellerEmail,
+                isSellerVerify: item?.isSellerVerify,
+            }
+
+            fetch('http://localhost:5000/addAdvertise', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    toast.success('Added to Advertise successfully');
+                });
+        }
     };
 
     return (
@@ -56,7 +102,10 @@ const SellerPost = () => {
                                     <td>{item?.resalePrice}</td>
                                     <td>
                                         {
-                                            (item?.status === "Available") ? <button className="btn btn-error btn-sm" onClick={() => handleAdvertise(item)}>Add to Advertise </button> : <p>{item?.status}</p>
+                                            (item?.status === "Available") ?
+                                                <button className="btn btn-error btn-sm" onClick={() => handleAdvertise(item)}>Add to Advertise </button>
+                                                :
+                                                <p>{item?.status}</p>
                                         }
 
                                     </td>
