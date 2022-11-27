@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
 import SingleBike from './SingleBike';
 
 const Category = () => {
     const { name } = useParams();
+    const { user } = useContext(AuthContext);
 
     const [bikes, setBikes] = useState([]);
 
@@ -12,7 +14,7 @@ const Category = () => {
         fetch(`http://localhost:5000/allBikes?category=${name}`)
             .then(res => res.json())
             .then(data => setBikes(data))
-    }, [])
+    }, [user?.uid])
 
     return (
         <div className='w-11/12 mx-auto min-h-[60vh] flex justify-center items-center'>
