@@ -11,8 +11,8 @@ const Home = () => {
         <div className='mx-5'>
             <Banner></Banner>
             <AdvertisedItems></AdvertisedItems>
-            <Review></Review>
             <BrandCategories></BrandCategories>
+            <Review></Review>
         </div>
     );
 };

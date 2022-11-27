@@ -7,6 +7,7 @@ const SideNav = () => {
     const { user } = useContext(AuthContext);
     const [role] = useUserRole(user);
     console.log(role);
+
     return (
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-200 text-base-content">
             <li><Link to=''>My Profile</Link></li>
@@ -17,9 +18,9 @@ const SideNav = () => {
             }
             {
                 role.role === 'seller' && <>
-                    <li><Link to='seller-post'>My Post</Link></li>
-                    <li><Link to='seller-post'>Add a post</Link></li>
-                    <li><Link to='seller-post'>My Buyers</Link></li>
+                    <li><Link to='seller-post'>My Product</Link></li>
+                    <li><Link to='add-a-product'>Add A Product</Link></li>
+                    <li><Link to='buyers'>My Buyers</Link></li>
                 </>
             }
             {

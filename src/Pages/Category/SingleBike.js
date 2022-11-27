@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
+import { toast } from 'react-toastify';
 
 const SingleBike = ({ bike }) => {
     const { user } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const SingleBike = ({ bike }) => {
         const form = e.target;
         const buyerName = form.buyerName.value;
         const buyerEmail = form.buyerEmail.value;
+        const phone = form.phone.value;
         const meetingLocation = form.meetingLocation.value;
 
         const formData = {
@@ -21,9 +23,12 @@ const SingleBike = ({ bike }) => {
             price: resalePrice,
             buyerName: buyerName,
             buyerEmail: buyerEmail,
-            meetingLocation: meetingLocation
+            phone: phone,
+            meetingLocation: meetingLocation,
+            sellerName: sellerName,
+            sellerEmail: sellerEmail,
         }
-        // console.log(formData);
+        
         fetch('http://localhost:5000/addBooking', {
             method: 'POST',
             headers: {
@@ -34,6 +39,7 @@ const SingleBike = ({ bike }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                toast.success('booking successfully');
             });
     };
 
@@ -49,26 +55,37 @@ const SingleBike = ({ bike }) => {
                     <form onSubmit={handleFormSubmit}>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Name</span>
+                                <span className="label-text">Your Name</span>
                             </label>
                             <input
                                 type="text"
                                 name='buyerName'
-                                value={user?.displayName} 
+                                value={user?.displayName}
                                 className="input input-bordered"
                                 disabled
                             />
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text">Your Email</span>
                             </label>
                             <input
                                 type="text"
                                 name='buyerEmail'
-                                value={user?.email}  
+                                value={user?.email}
                                 className="input input-bordered"
                                 disabled
+                            />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Your Phone</span>
+                            </label>
+                            <input
+                                type="text"
+                                name='phone'
+                                className="input input-bordered"
+                                required
                             />
                         </div>
                         <div className="form-control">
@@ -79,12 +96,13 @@ const SingleBike = ({ bike }) => {
                                 type="text"
                                 name='meetingLocation'
                                 className="input input-bordered"
+                                required
                             />
                         </div>
                         <button className="btn btn-primary my-10 block mx-auto">
-                        <label htmlFor={`bookNow${_id}`} >Submit</label>
+                            <label htmlFor={`bookNow${_id}`} >Submit</label>
                         </button>
-                        
+
                     </form>
                 </div>
             </div>

@@ -12,7 +12,7 @@ const BrandData = ({ brand }) => {
                 <h2 className="card-title">{brandName}</h2>
                 {/* <p>{amount} {amount?.length>1?'products':'product'} available</p> */}
                 <div className="card-actions">
-                    <Link to={`/category/${brandName}`} className="btn btn-primary">See Products</Link>
+                    <Link to={`/category/${brandName}`} className="btn">See Products</Link>
                 </div>
             </div>
         </div>

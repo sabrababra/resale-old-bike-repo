@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
     const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
-    const [role, setRole] = useState('buyer');
+    
 
     const from = location.state?.from?.pathname || '/';
 
@@ -23,30 +24,22 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-
-                const loginData = {
-                    userName: user?.displayName,
-                    email: user?.email,
-                    role: role
-                };
-
-                console.log(loginData);
-
                 if (user?.email) {
-                    fetch(`http://localhost:5000/user/${user?.email}`, {
-                        method: 'PUT',
+                    fetch(`http://localhost:5000/jwt?email=${user?.email}`, {
+                        method: 'GET',
                         headers: {
                             'content-type': 'application/json'
                         },
-                        body: JSON.stringify(loginData)
                     })
                         .then(res => res.json())
                         .then(data => {
                             localStorage.setItem('token', data.token)
                             console.log(data);
+                            toast.message('Login Successfully.');
                             navigate(from, { replace: true });
                         })
                 }
+                
             })
             .catch(error => {
                 console.log(error.message)
@@ -97,34 +90,6 @@ const Login = () => {
             </div>
             <div className="card w-11/12 lg:w-4/12  mx-auto  shadow-2xl bg-base-100 p-5">
                 <form onSubmit={handleSubmit(handleLogin)}>
-                    <div className="form-control w-full grid grid-cols-3 gap-4">
-                        <label className="label"> <span className="label-text">Role:</span></label>
-                        <div className="form-control">
-                            <label className="label cursor-pointer justify-evenly">
-                                <span className="label-text">Buyer</span>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    className="radio checked:bg-blue-500"
-                                    checked={role === 'buyer'}
-                                    onChange={() => setRole('buyer')}
-                                />
-                            </label>
-                        </div>
-                        <div className="form-control">
-                            <label className="label cursor-pointer justify-evenly">
-                                <span className="label-text">Seller</span>
-                                <input
-                                    type="radio"
-                                    name="role"
-                                    className="radio  checked:bg-blue-500"
-                                    checked={role === 'seller'}
-                                    onChange={() => setRole('seller')}
-                                />
-                            </label>
-                        </div>
-                    </div>
-
                     <div className="form-control w-full">
                         <label className="label"> <span className="label-text">Email</span></label>
                         <input type="text"
