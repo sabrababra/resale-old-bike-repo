@@ -18,8 +18,9 @@ const SingleBike = ({ bike }) => {
         const meetingLocation = form.meetingLocation.value;
 
         const formData = {
-            productName: name,
             productId: _id,
+            productName: name,
+            productImg:img,
             price: resalePrice,
             buyerName: buyerName,
             buyerEmail: buyerEmail,
@@ -27,6 +28,7 @@ const SingleBike = ({ bike }) => {
             meetingLocation: meetingLocation,
             sellerName: sellerName,
             sellerEmail: sellerEmail,
+            pay:'UnPaid',
         }
 
         fetch('http://localhost:5000/addBooking', {

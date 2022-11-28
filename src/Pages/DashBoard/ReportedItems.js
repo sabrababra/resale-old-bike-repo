@@ -99,7 +99,7 @@ const ReportedItems = () => {
                     </table>
                 </div>
                     :
-                    <div className='min-h-[50vh] text-2xl flex justify-center items-center'>You did not add any product</div>
+                    <div className='min-h-[50vh] text-2xl flex justify-center items-center'>Did not have any Report </div>
                 }
             </div>
 
