@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
 
@@ -22,6 +23,18 @@ const AllBuyers = () => {
 
     const handleDelete = (id) => {
         console.log(id);
+        fetch(`http://localhost:5000/deleteSellerAndBuyer/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    getData();
+                    toast.success('Deleted Buyer successfully');
+                });
     }
 
     return (
