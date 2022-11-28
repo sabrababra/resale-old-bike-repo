@@ -10,6 +10,7 @@ import Buyer from "../../Pages/DashBoard/Buyer";
 import Dashboard from "../../Pages/DashBoard/DashBoard";
 import MyProfile from "../../Pages/DashBoard/MyProfile";
 import MyWishList from "../../Pages/DashBoard/MyWishList";
+import Payment from "../../Pages/DashBoard/Payment/Payment";
 import ReportedItems from "../../Pages/DashBoard/ReportedItems";
 import SellerPost from "../../Pages/DashBoard/SellerPost";
 import Home from "../../Pages/Home/Home/Home";
@@ -93,6 +94,11 @@ export const router = createBrowserRouter([
                     {
                         path: 'buyers',
                         element: <PrivateRoute><Buyer /></PrivateRoute>
+
+                    },
+                    {
+                        path: 'payment/:id',
+                        element: <PrivateRoute><Payment /></PrivateRoute>
 
                     },
 

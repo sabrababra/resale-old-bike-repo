@@ -1,10 +1,11 @@
 import React from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import CheckoutForm from './Payment/CheckForm';
+import CheckForm from './Payment/CheckForm';
+import { Link } from 'react-router-dom';
 
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
+// const stripePromise = loadStripe('pk_test_51L1p8ACcQVA8yAkmETfwkRuFoyz5y3xpDlFcO7SauwYSOwcE1FaOpEDLqwqVBpbZYyA9kIFweD00JJfAlIHmYE2z00oq05wA4f');
 
 const BookingRow = ({ item }) => {
     const { _id, productImg, productName, price, sellerName, pay } = item;
@@ -13,7 +14,7 @@ const BookingRow = ({ item }) => {
     return (
         <>
             {/* modal  */}
-            <input type="checkbox" id={`pay${_id}`} className="modal-toggle" />
+            {/* <input type="checkbox" id={`pay${_id}`} className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative  w-11/12 max-w-2xl">
                     <label htmlFor={`pay${_id}`} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -31,15 +32,15 @@ const BookingRow = ({ item }) => {
                             <h1 className='text-2xl my-5'>Payment Now</h1>
 
                             <Elements stripe={stripePromise}>
-                                <CheckoutForm
+                                <CheckForm
                                     item={item}
                                 />
                             </Elements>
-                            
+
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
             {/* row  */}
@@ -58,7 +59,10 @@ const BookingRow = ({ item }) => {
                 <td>
                     {
                         pay === "UnPaid" &&
-                        <label htmlFor={`pay${_id}`} className="btn btn-info btn-sm">pay Now</label>
+                        <Link to={`/dashboard/payment/${_id}`} className="btn btn-info btn-sm">pay Now</Link>
+                    }
+                    {
+                        item?.transactionId && `TransactionId: ${item?.transactionId}`
                     }
                 </td>
             </tr>

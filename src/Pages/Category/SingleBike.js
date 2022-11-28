@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 const SingleBike = ({ bike }) => {
     const { user } = useContext(AuthContext);
+
     const { _id, name, img, category, location, resalePrice, originalPrice, UsedYears, postedTime, sellerName, isSellerVerify, sellerEmail, status, description, condition } = bike;
 
 
@@ -176,7 +177,9 @@ const SingleBike = ({ bike }) => {
                             <p>Email: {sellerEmail}</p>
                             <p>Post time: {postedTime}</p>
                         </div>
-                        <label htmlFor={`bookNow${_id}`} className="btn btn-primary">Book Now</label>
+                        {
+                            (isSellerVerify && status !== 'Sold') && <label htmlFor={`bookNow${_id}`} className="btn btn-primary">Book Now</label>
+                        }
                     </div>
                 </div>
             </div>

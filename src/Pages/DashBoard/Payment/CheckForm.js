@@ -1,40 +1,49 @@
-import { useEffect, useState } from "react";
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
+const CheckForm = ({ booking }) => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [clientSecret, setClientSecret] = useState("");
 
-const CheckoutForm = ({ item }) => {
+    const { _id, productId, productName, price, buyerName, buyerEmail } = booking;
+
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
-    const [clientSecret, setClientSecret] = useState("");
+    const navigate = useNavigate();
 
-    const stripe = useStripe();
-    const elements = useElements();
-    const { price, buyerName, buyerEmail, _id,productId } = item;
-
-    
     useEffect(() => {
-        fetch("https://bike-resale-server.vercel.app/create-payment-intent", {
-            method: "POST",
+        fetch('https://bike-resale-server.vercel.app/create-payment-intent', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                authorization: `bearer ${localStorage.getItem('token')}`
+                'content-type': 'application/json',
+                // 'authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ price }),
+            body: JSON.stringify({ price })
         })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
-    }, [price]);
+            .then(res => res.json())
+            .then(data => {
+                if (data?.clientSecret) {
+                    setClientSecret(data.clientSecret);
+                }
+            });
+
+    }, [booking?.price])
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
-            return
+            return;
         }
 
         const card = elements.getElement(CardElement);
+
         if (card === null) {
             return;
         }
@@ -42,18 +51,14 @@ const CheckoutForm = ({ item }) => {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card
-        });
+        })
 
-        if (error) {
-            console.log(error);
-            setCardError(error.message);
-        }
-        else {
-            setCardError('');
-        }
+        setCardError(error?.message || '')
         setSuccess('');
         setProcessing(true);
-        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+
+        // confirm card payment
+        const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
             clientSecret,
             {
                 payment_method: {
@@ -66,79 +71,64 @@ const CheckoutForm = ({ item }) => {
             },
         );
 
-        if (confirmError) {
-            setCardError(confirmError.message);
-            return;
+        if (intentError) {
+            setCardError(intentError?.message);
+            setProcessing(false);
         }
-        if (paymentIntent.status === "succeeded") {
-            console.log('card info', card);
+        else {
+            setCardError('');
+            setTransactionId(paymentIntent.id);
+            console.log(paymentIntent);
+            setSuccess('Congrats! Your payment is completed.')
 
-            // store payment info in the database
+            //save payment
             const payment = {
-                price,
+                productId: productId,
                 transactionId: paymentIntent.id,
-                buyerEmail,
-                bookingId: _id,
-                productId:productId
+                productName: productName,
+                email: buyerEmail,
+                name: buyerName,
+                price: parseInt(price),
             }
-            fetch('https://bike-resale-server.vercel.app/payments', {
+            fetch(`https://bike-resale-server.vercel.app/payments/${_id}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
-                    authorization: `bearer ${localStorage.getItem('token')}`
+                    'authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(payment)
-            })
-                .then(res => res.json())
+            }).then(res => res.json())
                 .then(data => {
+                    setProcessing(false);
                     console.log(data);
-                    if (data.insertedId) {
-                        setSuccess('Congrats! your payment completed');
-                        setTransactionId(paymentIntent.id);
-                    }
+                    toast.success("Payment Successfully");
+                    navigate('/dashboard/booking')
+
                 })
+            console.log(paymentMethod, processing);
         }
-        setProcessing(false);
+    };
 
-
-    }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <CardElement
-                    options={{
-                        style: {
-                            base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
-                                },
-                            },
-                            invalid: {
-                                color: '#9e2146',
-                            },
-                        },
-                    }}
-                />
-                <button
-                    className='btn btn-sm mt-4 btn-primary'
-                    type="submit"
-                    disabled={!stripe || !clientSecret || processing}
-                    >
+                <CardElement />
+                <button className='btn btn-success mt-5' type="submit" disabled={!stripe || !elements || !clientSecret}>
                     Pay
                 </button>
             </form>
-            <p className="text-red-500">{cardError}</p>
             {
-                success && <div>
-                    <p className='text-green-500'>{success}</p>
-                    <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
+                cardError && <p className='text-red-500'>{cardError}</p>
+            }
+            {
+                success && <div className='text-green-500'>
+                    <p>{success}  </p>
+                    <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span> </p>
                 </div>
             }
         </>
     );
 };
 
-export default CheckoutForm;
+export default CheckForm;
