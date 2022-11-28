@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
+import BookingRow from './BookingRow';
 
 const Booking = () => {
     UseTitle('My Orders');
@@ -16,21 +17,8 @@ const Booking = () => {
         getData();
     }, [user?.uid])
 
-    const handlePay = () => {
 
-    }
 
-    // productId: _id,
-    //         productName: name,
-    //         productImg:img,
-    //         price: resalePrice,
-    //         buyerName: buyerName,
-    //         buyerEmail: buyerEmail,
-    //         phone: phone,
-    //         meetingLocation: meetingLocation,
-    //         sellerName: sellerName,
-    //         sellerEmail: sellerEmail,
-    //         pay:'UnPaid',
 
     return (
         <div className='w-11/12 mx-auto'>
@@ -52,28 +40,7 @@ const Booking = () => {
                         </thead>
                         <tbody>
                             {
-                                tableData?.map(item => <tr key={item?._id}>
-                                    <td>
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle w-12 h-12">
-                                                <img src={item?.productImg} alt={item?.name} />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{item?.productName}</td>
-                                    <td>{item?.price}</td>
-                                    <td>{item?.sellerName}</td>
-                                    <td>{item?.pay}</td>
-                                    <td>
-                                        {
-                                            item?.pay === "UnPaid" &&
-                                            <button className="btn btn-info btn-sm" onClick={() => handlePay(item?._id)}>Pay Now</button>
-                                        }
-                                    </td>
-                                    {/* <td>
-                                        <button className="btn btn-error btn-sm" onClick={() => handleRemovePost(item?._id, item?.productId)}>Delete Report Product</button>
-                                    </td> */}
-                                </tr>)
+                                tableData?.map(item => <BookingRow key={item?._id} item={item} />)
                             }
 
                         </tbody>
