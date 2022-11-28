@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const SingleBike = ({ bike }) => {
     const { user } = useContext(AuthContext);
-    const { _id, name, img, category, location, resalePrice, originalPrice, UsedYears, postedTime, sellerName, isSellerVerify, sellerEmail, status,description,condition } = bike;
+    const { _id, name, img, category, location, resalePrice, originalPrice, UsedYears, postedTime, sellerName, isSellerVerify, sellerEmail, status, description, condition } = bike;
 
 
     const handleFormSubmit = (e) => {
@@ -41,6 +41,31 @@ const SingleBike = ({ bike }) => {
                 console.log(data);
                 toast.success('booking successfully');
             });
+    };
+
+    const handleReport = (item) => {
+        const data = {
+            productId: item._id,
+            productName: item.name,
+            productImg:item.img,
+            sellerName: item.sellerName,
+            sellerEmail: item.sellerEmail,
+            buyerEmail: user?.email,
+            buyerName: user?.displayName,
+        }
+
+        fetch('http://localhost:5000/addReport', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    toast.success('report sent');
+                });
     };
 
     return (
@@ -112,9 +137,10 @@ const SingleBike = ({ bike }) => {
                 <figure>
                     <img className='w-[300px] h-[300px] mx-auto rounded-lg' src={img} alt="Album" />
                 </figure>
-                <div className="card-body">
+                <div className="card-body relative">
                     <h2 className="card-title">{name}</h2>
-                    <div className='grid grid-cols-2'>
+                    <button onClick={() => handleReport(bike)} className='text-error text-right absolute top-4 right-4 hover:btn-ghost'>report to admin</button>
+                    <div className='grid grid-cols-3'>
                         <p><span className=' font-semibold'>Category:</span> {category}</p>
                         <p><span className=' font-semibold'>Status:</span> {status}</p>
                         <p><span className=' font-semibold'>Condition:</span> {condition}</p>
