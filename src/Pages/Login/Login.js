@@ -10,10 +10,11 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const Login = () => {
     UseTitle('Login')
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn, googleSignIn } = useContext(AuthContext);
+    const { signIn, googleSignIn,loading } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
+    
 
 
     const from = location.state?.from?.pathname || "/";
@@ -124,7 +125,9 @@ const Login = () => {
                 </form>
                 <p>New to Resale Bike <Link className='text-secondary' to="/signup">Create new Account</Link></p>
                 <div className="divider">OR</div>
-
+                            {
+                                loading && <div><span className="loader"></span></div>
+                            }
                 <button className='btn btn-outline w-full'
                     onClick={() => handleGoogle()}>CONTINUE WITH GOOGLE (only for buyer)</button>
 
