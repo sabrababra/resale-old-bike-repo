@@ -41,7 +41,7 @@ const SignUp = () => {
                         console.log(loginData);
 
                         if (user?.uid) {
-                            fetch(`http://localhost:5000/user/${user?.email}`, {
+                            fetch(`https://bike-resale-server.vercel.app/user/${user?.email}`, {
                                 method: 'PUT',
                                 headers: {
                                     'content-type': 'application/json'
@@ -53,7 +53,7 @@ const SignUp = () => {
                                     localStorage.setItem('token', data.token)
                                     console.log(data);
                                     toast.message('User Created Successfully.');
-                                    navigate(from, { replace: true });
+                                    //navigate(from, { replace: true });
                                 })
                         }
                         toast.message('User Created Successfully.');
@@ -80,7 +80,7 @@ const SignUp = () => {
                         role: 'buyer',
                         isSellerVerify: false,
                     };
-                    fetch(`http://localhost:5000/user/${user?.email}`, {
+                    fetch(`https://bike-resale-server.vercel.app/user/${user?.email}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'

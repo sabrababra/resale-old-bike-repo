@@ -9,7 +9,7 @@ const AllBuyers = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/allSellersAndBuyers?role=buyer`)
+        fetch(`https://bike-resale-server.vercel.app/allSellersAndBuyers?role=buyer`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }
@@ -23,18 +23,24 @@ const AllBuyers = () => {
 
     const handleDelete = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/deleteSellerAndBuyer/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'content-type': 'application/json'
-                },
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
+        fetch(`https://bike-resale-server.vercel.app/deleteSellerAndBuyer/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
                     getData();
                     toast.success('Deleted Buyer successfully');
-                });
+                }
+            });
     }
 
     return (

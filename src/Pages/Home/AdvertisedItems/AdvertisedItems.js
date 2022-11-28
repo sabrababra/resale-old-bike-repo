@@ -9,22 +9,16 @@ import { useQuery } from '@tanstack/react-query';
 
 const AdvertisedItems = () => {
     const { user } = useContext(AuthContext);
-   // const [adsData, setAdsData] = useState([]);
 
     const {data:adsData=[],isLoading}=useQuery({
         queryKey: ['getAdvertise'],
         queryFn: async()=> {
-            const res = await fetch('http://localhost:5000/getAdvertise');
+            const res = await fetch('https://bike-resale-server.vercel.app/getAdvertise');
             const data = await res.json();
             return data
         }
     })
 
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/getAdvertise')
-    //         .then(res => res.json())
-    //         .then(data => setAdsData(data))
-    // }, [user?.uid])
 
     return (
 

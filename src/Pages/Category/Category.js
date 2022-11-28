@@ -14,14 +14,14 @@ const Category = () => {
     const {data:bikes=[],isLoading}=useQuery({
         queryKey: ['allBikes'],
         queryFn: async()=> {
-            const res = await fetch(`http://localhost:5000/allBikes?category=${name}`);
+            const res = await fetch(`https://bike-resale-server.vercel.app/allBikes?category=${name}`);
             const data = await res.json();
             return data
         }
     })
 
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/allBikes?category=${name}`)
+    //     fetch(`https://bike-resale-server.vercel.app/allBikes?category=${name}`)
     //         .then(res => res.json())
     //         .then(data => setBikes(data))
     // }, [user?.uid])

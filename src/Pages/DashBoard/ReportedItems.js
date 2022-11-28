@@ -9,7 +9,7 @@ const ReportedItems = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/getReport`)
+        fetch(`https://bike-resale-server.vercel.app/getReport`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }
@@ -19,33 +19,45 @@ const ReportedItems = () => {
 
     const handleRemoveReport = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/removeReport/${id}`, {
+        fetch(`https://bike-resale-server.vercel.app/removeReport/${id}`, {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getData();
-                toast.success('Remove Report successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    getData();
+                    toast.success('Remove Report successfully');
+                }
             });
     };
 
-    const handleRemovePost = (id,productId) => {
-        fetch(`http://localhost:5000/removePost/${id}`, {
+    const handleRemovePost = (id, productId) => {
+        fetch(`https://bike-resale-server.vercel.app/removePost/${id}`, {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({productId:productId})
+            body: JSON.stringify({ productId: productId })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getData();
-                toast.success('Deleted Report Post successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    getData();
+                    toast.success('Deleted Report Post successfully');
+                }
             });
     };
 
@@ -90,7 +102,7 @@ const ReportedItems = () => {
 
                                     </td>
                                     <td>
-                                        <button className="btn btn-error btn-sm" onClick={() => handleRemovePost(item?._id,item?.productId)}>Delete Report Product</button>
+                                        <button className="btn btn-error btn-sm" onClick={() => handleRemovePost(item?._id, item?.productId)}>Delete Report Product</button>
                                     </td>
                                 </tr>)
                             }

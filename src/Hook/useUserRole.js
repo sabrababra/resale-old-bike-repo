@@ -7,7 +7,7 @@ const useUserRole = user => {
     useEffect(() => {
         const email = user?.email;
         if (email) {
-            fetch(`http://localhost:5000/role/${email}`, {
+            fetch(`https://bike-resale-server.vercel.app/role/${email}`, {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',

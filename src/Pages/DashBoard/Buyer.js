@@ -8,7 +8,7 @@ const Buyer = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/myBuyers?email=${user?.email}`)
+        fetch(`https://bike-resale-server.vercel.app/myBuyers?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }

@@ -9,7 +9,7 @@ const Booking = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/booking?email=${user?.email}`)
+        fetch(`https://bike-resale-server.vercel.app/booking?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }

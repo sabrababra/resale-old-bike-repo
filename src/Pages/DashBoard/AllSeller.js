@@ -9,7 +9,7 @@ const AllSeller = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = () => {
-        fetch(`http://localhost:5000/allSellersAndBuyers?role=seller`)
+        fetch(`https://bike-resale-server.vercel.app/allSellersAndBuyers?role=seller`)
             .then(res => res.json())
             .then(data => setTableData(data))
     }
@@ -19,49 +19,68 @@ const AllSeller = () => {
 
     const handleVerify = (email) => {
         console.log(email);
-        fetch(`http://localhost:5000/verifySeller?email=${email}`, {
+        fetch(`https://bike-resale-server.vercel.app/verifySeller?email=${email}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({ isSellerVerify: true })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getData();
-                toast.success('Verify Seller successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    getData();
+                    toast.success('Verify Seller successfully');
+                }
             });
     }
+    
     const handleUnVerify = (email) => {
-        fetch(`http://localhost:5000/verifySeller?email=${email}`, {
+        fetch(`https://bike-resale-server.vercel.app/verifySeller?email=${email}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({ isSellerVerify: false })
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getData();
-                toast.success('Verify Seller successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    getData();
+                    toast.success('Verify Seller successfully');
+                }
             });
     }
 
     const handleDelete = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/deleteSellerAndBuyer/${id}`, {
+        fetch(`https://bike-resale-server.vercel.app/deleteSellerAndBuyer/${id}`, {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                getData();
-                toast.success('Deleted Seller successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    getData();
+                    toast.success('Deleted Seller successfully');
+                }
             });
     }
 

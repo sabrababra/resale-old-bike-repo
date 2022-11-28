@@ -7,7 +7,8 @@ import useUserRole from '../../Hook/useUserRole';
 import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-    UseTitle('Add A Product')
+    UseTitle('Add A Product');
+
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const { user } = useContext(AuthContext);
     const [role] = useUserRole(user);
@@ -38,21 +39,27 @@ const AddProduct = () => {
 
             console.log(productData);
 
-            fetch('http://localhost:5000/addProduct', {
+            fetch('https://bike-resale-server.vercel.app/addProduct', {
                 method: 'POST',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(productData)
             })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    reset();
-                    setCategory('Honda');
-                    setCondition('Excellent');
-                    navigate('/dashboard/seller-post')
-                    toast.success('Added product successfully');
+
+                    if (data?.message) {
+                        toast.error(data.message);
+                    } else {
+                        reset();
+                        setCategory('Honda');
+                        setCondition('Excellent');
+                        navigate('/dashboard/seller-post')
+                        toast.success('Added product successfully');
+                    }
                 });
         }
 

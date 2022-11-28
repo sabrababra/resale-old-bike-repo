@@ -20,7 +20,7 @@ const SingleBike = ({ bike }) => {
         const formData = {
             productId: _id,
             productName: name,
-            productImg:img,
+            productImg: img,
             price: resalePrice,
             buyerName: buyerName,
             buyerEmail: buyerEmail,
@@ -28,20 +28,26 @@ const SingleBike = ({ bike }) => {
             meetingLocation: meetingLocation,
             sellerName: sellerName,
             sellerEmail: sellerEmail,
-            pay:'UnPaid',
+            pay: 'UnPaid',
         }
 
-        fetch('http://localhost:5000/addBooking', {
+        fetch('https://bike-resale-server.vercel.app/addBooking', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(formData)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                toast.success('booking successfully');
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    toast.success('booking successfully');
+                }
             });
     };
 
@@ -49,25 +55,30 @@ const SingleBike = ({ bike }) => {
         const data = {
             productId: item._id,
             productName: item.name,
-            productImg:item.img,
+            productImg: item.img,
             sellerName: item.sellerName,
             sellerEmail: item.sellerEmail,
             buyerEmail: user?.email,
             buyerName: user?.displayName,
         }
 
-        fetch('http://localhost:5000/addReport', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
+        fetch('https://bike-resale-server.vercel.app/addReport', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
                     toast.success('report sent');
-                });
+                }
+            });
     };
 
     return (

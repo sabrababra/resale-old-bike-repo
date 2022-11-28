@@ -11,16 +11,13 @@ const SellerPost = () => {
     const [tableData, setTableData] = useState([]);
 
     const getData = async () => {
-        // fetch(`http://localhost:5000/myProduct?email=${user?.email}`)
-        //     .then(res => res.json())
-        //     .then(data => setTableData(data))
         try {
-                  const response = await axios.get(`http://localhost:5000/myProduct?email=${user?.email}`);
-                  setTableData(response.data);
-                } catch (error) {
-                  console.error(error);
-                }
-              
+            const response = await axios.get(`https://bike-resale-server.vercel.app/myProduct?email=${user?.email}`);
+            setTableData(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+
     }
     useEffect(() => {
         getData();
@@ -28,17 +25,23 @@ const SellerPost = () => {
 
     const handleDelete = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/deleteAdvertise/${id}`, {
+        fetch(`https://bike-resale-server.vercel.app/deleteAdvertise/${id}`, {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `bearer ${localStorage.getItem('token')}`
             },
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                toast.success('Deleted successfully');
-                getData();
+
+                if (data?.message) {
+                    toast.error(data.message);
+                } else {
+                    toast.success('Deleted successfully');
+                    getData();
+                }
             });
     };
 
@@ -48,19 +51,25 @@ const SellerPost = () => {
         if (user?.email) {
             const updateDate = { ads: true }
 
-            fetch(`http://localhost:5000/addAdvertise/${id}`, {
+            fetch(`https://bike-resale-server.vercel.app/addAdvertise/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(updateDate)
             })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    getData();
-                    toast.success('Added to Advertise successfully');
+                    if (data?.message) {
+                        toast.error(data.message);
+                    } else {
+                        getData();
+                        toast.success('Added to Advertise successfully');
+                    }
                 });
+
         }
     };
 
@@ -70,18 +79,23 @@ const SellerPost = () => {
         if (user?.email) {
             const updateDate = { ads: false }
 
-            fetch(`http://localhost:5000/addAdvertise/${id}`, {
+            fetch(`https://bike-resale-server.vercel.app/addAdvertise/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'content-type': 'application/json'
+                    'content-type': 'application/json',
+                    authorization: `bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(updateDate)
             })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
-                    getData();
-                    toast.success('Added to Advertise successfully');
+                    if (data?.message) {
+                        toast.error(data.message);
+                    } else {
+                        getData();
+                        toast.success('Removed to Advertise successfully');
+                    }
                 });
         }
     };

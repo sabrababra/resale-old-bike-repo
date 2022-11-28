@@ -24,7 +24,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 if (user?.email) {
-                    fetch(`http://localhost:5000/jwt?email=${user?.email}`, {
+                    fetch(`https://bike-resale-server.vercel.app/jwt?email=${user?.email}`, {
                         method: 'GET',
                         headers: {
                             'content-type': 'application/json'
@@ -63,7 +63,7 @@ const Login = () => {
                         role: 'buyer',
                         isSellerVerify: false,
                     };
-                    fetch(`http://localhost:5000/user/${user?.email}`, {
+                    fetch(`https://bike-resale-server.vercel.app/user/${user?.email}`, {
                         method: 'PUT',
                         headers: {
                             'content-type': 'application/json'
