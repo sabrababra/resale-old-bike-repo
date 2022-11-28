@@ -17,25 +17,52 @@ const AllSeller = () => {
         getData();
     }, [user?.uid])
 
-    const handleVerify = (id) => {
-        console.log(id);
-        // deleteSellerAndBuyer
+    const handleVerify = (email) => {
+        console.log(email);
+        fetch(`http://localhost:5000/verifySeller?email=${email}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ isSellerVerify: true })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getData();
+                toast.success('Verify Seller successfully');
+            });
+    }
+    const handleUnVerify = (email) => {
+        fetch(`http://localhost:5000/verifySeller?email=${email}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ isSellerVerify: false })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getData();
+                toast.success('Verify Seller successfully');
+            });
     }
 
     const handleDelete = (id) => {
         console.log(id);
         fetch(`http://localhost:5000/deleteSellerAndBuyer/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'content-type': 'application/json'
-                },
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    getData();
-                    toast.success('Deleted Seller successfully');
-                });
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                getData();
+                toast.success('Deleted Seller successfully');
+            });
     }
 
     return (
@@ -54,6 +81,7 @@ const AllSeller = () => {
                                 <th>Role</th>
                                 <th>verify</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,12 +91,13 @@ const AllSeller = () => {
                                     <td >{item?.userName}</td>
                                     <td>{item?.email}</td>
                                     <td>{item?.role}</td>
+                                    <td>{item?.isSellerVerify ? 'Yes' : "No"}</td>
                                     <td>
                                         {
                                             item?.isSellerVerify ?
-                                                <p>{item?.isSellerVerify}</p>
+                                                < button className="btn btn-error btn-sm" onClick={() => handleUnVerify(item?.email)}>Unverified</button>
                                                 :
-                                                < button className="btn btn-error btn-sm" onClick={() => handleVerify(item?._id)}>Verify</button>
+                                                < button className="btn btn-info btn-sm" onClick={() => handleVerify(item?.email)}>Verify</button>
                                         }
                                     </td>
                                     <td>
