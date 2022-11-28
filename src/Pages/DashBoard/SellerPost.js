@@ -2,16 +2,25 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
 import { toast } from 'react-toastify';
+import axios from 'axios';
+import { async } from '@firebase/util';
 
 const SellerPost = () => {
     UseTitle('My Products');
     const { user } = useContext(AuthContext);
     const [tableData, setTableData] = useState([]);
 
-    const getData = () => {
-        fetch(`http://localhost:5000/myProduct?email=${user?.email}`)
-            .then(res => res.json())
-            .then(data => setTableData(data))
+    const getData = async () => {
+        // fetch(`http://localhost:5000/myProduct?email=${user?.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setTableData(data))
+        try {
+                  const response = await axios.get(`http://localhost:5000/myProduct?email=${user?.email}`);
+                  setTableData(response.data);
+                } catch (error) {
+                  console.error(error);
+                }
+              
     }
     useEffect(() => {
         getData();
