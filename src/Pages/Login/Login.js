@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import UseTitle from '../../Hook/useTitle';
 import { toast } from 'react-toastify';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 
 const Login = () => {
@@ -50,9 +51,11 @@ const Login = () => {
 
     }
 
+    const googleProvider = new GoogleAuthProvider();
+
     const handleGoogle = () => {
 
-        googleSignIn()
+        googleSignIn(googleProvider)
             .then(result => {
                 const user = result.user;
                 console.log(user);
