@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
+
 const CheckoutForm = ({ item }) => {
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
@@ -12,6 +13,7 @@ const CheckoutForm = ({ item }) => {
     const elements = useElements();
     const { price, buyerName, buyerEmail, _id,productId } = item;
 
+    
     useEffect(() => {
         fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",

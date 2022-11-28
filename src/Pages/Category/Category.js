@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
@@ -8,13 +9,22 @@ const Category = () => {
     const { name } = useParams();
     const { user } = useContext(AuthContext);
 
-    const [bikes, setBikes] = useState([]);
+    //const [bikes, setBikes] = useState([]);
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/allBikes?category=${name}`)
-            .then(res => res.json())
-            .then(data => setBikes(data))
-    }, [user?.uid])
+    const {data:bikes=[],isLoading}=useQuery({
+        queryKey: ['allBikes'],
+        queryFn: async()=> {
+            const res = await fetch(`http://localhost:5000/allBikes?category=${name}`);
+            const data = await res.json();
+            return data
+        }
+    })
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/allBikes?category=${name}`)
+    //         .then(res => res.json())
+    //         .then(data => setBikes(data))
+    // }, [user?.uid])
 
     return (
         <div className='w-11/12 mx-auto min-h-[60vh] flex justify-center items-center'>

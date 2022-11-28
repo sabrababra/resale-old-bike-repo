@@ -29,11 +29,13 @@ const BookingRow = ({ item }) => {
                         </div>
                         <div className='my-auto'>
                             <h1 className='text-2xl my-5'>Payment Now</h1>
+
                             <Elements stripe={stripePromise}>
                                 <CheckoutForm
                                     item={item}
                                 />
                             </Elements>
+                            
                         </div>
                     </div>
                 </div>

@@ -5,16 +5,26 @@ import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
 
 const AdvertisedItems = () => {
     const { user } = useContext(AuthContext);
-    const [adsData, setAdsData] = useState([]);
+   // const [adsData, setAdsData] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/getAdvertise')
-            .then(res => res.json())
-            .then(data => setAdsData(data))
-    }, [user?.uid])
+    const {data:adsData=[],isLoading}=useQuery({
+        queryKey: ['getAdvertise'],
+        queryFn: async()=> {
+            const res = await fetch('http://localhost:5000/getAdvertise');
+            const data = await res.json();
+            return data
+        }
+    })
+
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/getAdvertise')
+    //         .then(res => res.json())
+    //         .then(data => setAdsData(data))
+    // }, [user?.uid])
 
     return (
 
