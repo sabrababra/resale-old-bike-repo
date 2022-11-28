@@ -71,7 +71,7 @@ const AddProduct = () => {
             <h1 className='text-white text-center text-3xl font-semibold my-10'>
                 <span className='p-1 border-b-2 border-primary'>Add <span className='text-primary'>A Product</span></span>
             </h1>
-            <div className='card w-10/12 mx-auto shadow-lg bg-white'>
+            <div className='card lg:w-10/12 mx-auto shadow-lg bg-white'>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(handleSubmitForm)}>
 
@@ -95,7 +95,7 @@ const AddProduct = () => {
                             {errors.img && <p className='text-red-600'>{errors.img?.message}</p>}
                         </div>
 
-                        <div className="form-control w-full grid grid-cols-5 gap-4 my-4">
+                        <div className="form-control w-full grid lg:grid-cols-5 grid-cols-2 gap-4 my-4">
                             <label className="label"> <span className="label-text">Category:</span></label>
                             <div className="form-control">
                                 <label className="label cursor-pointer justify-evenly">
@@ -177,7 +177,7 @@ const AddProduct = () => {
                             {errors.UsedYears && <p className='text-red-600'>{errors.UsedYears?.message}</p>}
                         </div>
 
-                        <div className="form-control w-full grid grid-cols-5 gap-4 my-4">
+                        <div className="form-control w-full grid  lg:grid-cols-5 grid-cols-2 gap-4 my-4">
                             <label className="label"> <span className="label-text">Condition:</span></label>
                             <div className="form-control">
                                 <label className="label cursor-pointer justify-evenly">

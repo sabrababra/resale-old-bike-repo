@@ -38,7 +38,7 @@ const AdvertisedItems = () => {
                         >
                             {
                                 adsData.map(item => <SwiperSlide key={item?._id}>
-                                    <div className="grid grid-cols-3 gap-5">
+                                    <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
                                         <img className='w-fit rounded-lg col-span-2' src={item?.img} alt="Album" />
                                         <div className="col-span-1 my-auto">
                                             <h2 className="text-2xl font-semibold my-4">{item?.name}</h2>
