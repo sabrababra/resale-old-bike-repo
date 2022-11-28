@@ -10,6 +10,7 @@ import Buyer from "../../Pages/DashBoard/Buyer";
 import Dashboard from "../../Pages/DashBoard/DashBoard";
 import MyProfile from "../../Pages/DashBoard/MyProfile";
 import MyWishList from "../../Pages/DashBoard/MyWishList";
+import ReportedItems from "../../Pages/DashBoard/ReportedItems";
 import SellerPost from "../../Pages/DashBoard/SellerPost";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -48,54 +49,59 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute><Category /></PrivateRoute>
             },
             {
-                path:'/dashboard',
+                path: '/dashboard',
                 element: <PrivateRoute><Dashboard /></PrivateRoute>,
-                children:[
+                children: [
                     {
-                        index:true,
-                        element:<PrivateRoute><MyProfile /></PrivateRoute>
-                    },
-                    { 
-                        path:'allSeller',
-                        element:<PrivateRoute><AllSeller></AllSeller></PrivateRoute> 
+                        index: true,
+                        element: <PrivateRoute><MyProfile /></PrivateRoute>
                     },
                     {
-                        path:'allBuyer',
+                        path: 'allSeller',
+                        element:<PrivateRoute><AllSeller></AllSeller></PrivateRoute>
+                    },
+                    {
+                        path: 'allBuyer',
                         element:<PrivateRoute><AllBuyer></AllBuyer></PrivateRoute>
-                        
+
                     },
                     {
-                        path:'booking',
-                        element:<PrivateRoute><Booking /></PrivateRoute>
-                        
+                        path: 'reportedItems',
+                        element:<PrivateRoute><ReportedItems /></PrivateRoute>
+
                     },
                     {
-                        path:'my-WishList',
-                        element:<PrivateRoute><MyWishList /></PrivateRoute>
-                        
+                        path: 'booking',
+                        element: <PrivateRoute><Booking /></PrivateRoute>
+
                     },
                     {
-                        path:'seller-post',
-                        element:<PrivateRoute><SellerPost /></PrivateRoute>
-                        
+                        path: 'my-WishList',
+                        element: <PrivateRoute><MyWishList /></PrivateRoute>
+
                     },
                     {
-                        path:'add-a-product',
-                        element:<PrivateRoute><AddProduct /></PrivateRoute>
-                        
+                        path: 'seller-post',
+                        element: <PrivateRoute><SellerPost /></PrivateRoute>
+
                     },
                     {
-                        path:'buyers',
-                        element:<PrivateRoute><Buyer /></PrivateRoute>
-                        
+                        path: 'add-a-product',
+                        element: <PrivateRoute><AddProduct /></PrivateRoute>
+
                     },
-                     
+                    {
+                        path: 'buyers',
+                        element: <PrivateRoute><Buyer /></PrivateRoute>
+
+                    },
+
                 ]
-                
+
             },
-            {path:'*',element:<NotFound></NotFound>}
+            { path: '*', element: <NotFound></NotFound> }
         ]
-        
+
     },
-     {path:'*',element:<NotFound></NotFound>}
+    { path: '*', element: <NotFound></NotFound> }
 ])

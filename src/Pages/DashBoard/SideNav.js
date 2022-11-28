@@ -28,6 +28,7 @@ const SideNav = () => {
                 role.role === 'admin' && <>
                     <li><Link to='allSeller'>All Seller</Link></li>
                     <li><Link to='allBuyer'>All Buyers</Link></li>
+                    <li><Link to='reportedItems'>Reported Items</Link></li>
                 </>
             }
 
