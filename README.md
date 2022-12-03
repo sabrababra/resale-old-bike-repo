@@ -1,6 +1,7 @@
 # Resale Bike
 #### Sell bike in this online platfrom 
-
+###adminEmail: <nio@gmail.com>
+###adminPassword: <Nihi@#123>
 ## `LIVE-SITE` : [Resale Bike](https://bike-resale.web.app/)
 
 ## Description
