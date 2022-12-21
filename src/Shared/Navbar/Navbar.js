@@ -4,6 +4,7 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Navbar = () => {
     const { logOut, user } = useContext(AuthContext);
+    console.log(user);
     const menuItems = <>
         <li><Link to='/home'>Home</Link></li>
         <li><Link to='/blogs'>Blogs</Link></li>
@@ -34,7 +35,7 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src='https://thumbs.dreamstime.com/b/user-icon-trendy-flat-style-isolated-grey-background-user-symbol-user-icon-trendy-flat-style-isolated-grey-background-123663211.jpg' alt='' />
+                                    <img src={user?.photoURL} alt='' />
                                 </div>
                             </label>
                             <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">

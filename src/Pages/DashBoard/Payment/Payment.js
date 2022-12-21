@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CheckForm from './CheckForm';
 
-const stripePromise = loadStripe('pk_test_51L1p8ACcQVA8yAkmETfwkRuFoyz5y3xpDlFcO7SauwYSOwcE1FaOpEDLqwqVBpbZYyA9kIFweD00JJfAlIHmYE2z00oq05wA4f');
+const stripePromise = loadStripe('pk_test_51M93DhBQeoUKbqjzL93iuXMaUNEhlwKXU55ReIBQ2bxd5LQtT7THA1JotI5bVplGqoghEa5lew4tH2rhGfk45xMc00RGayjQnI');
 
 const Payment = () => {
     const { id } = useParams();
