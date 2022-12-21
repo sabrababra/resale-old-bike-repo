@@ -10,8 +10,9 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const Login = () => {
     UseTitle('Login')
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn, googleSignIn,loading } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
+    const [loading, setLoading] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     
@@ -22,6 +23,7 @@ const Login = () => {
     const handleLogin = data => {
         console.log(data);
         setLoginError('');
+        setLoading(true);
         signIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
@@ -34,16 +36,19 @@ const Login = () => {
                     })
                         .then(res => res.json())
                         .then(fData => {
+                            setLoading(false);
                             if (fData?.accessToken) {
                                 console.log('token',fData);
                                 localStorage.setItem('token', fData.accessToken)
                             }
                         })
                 }
+               // setLoading('flase')
                 navigate(from, { replace: true });
                 toast.message('Login Successfully.');
             })
             .catch(error => {
+                setLoading(false);
                 console.log(error.message)
                 setLoginError(error.message);
             });
@@ -59,7 +64,7 @@ const Login = () => {
         googleSignIn(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                //console.log(user);
                 if (user?.email) {
                     const loginData = {
                         userName: user?.displayName,
@@ -77,12 +82,12 @@ const Login = () => {
                         .then(res => res.json())
                         .then(data => {
                             localStorage.setItem('token', data.token)
-                            console.log(data);
+                            //console.log(data);
                             // navigate(from, { replace: true });
                         })
                 }
-                toast.message('Login Successfully.');
                 navigate(from, { replace: true });
+                toast.message('Login Successfully.');
             })
             .catch(err => console.error(err));
 

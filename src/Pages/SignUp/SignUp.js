@@ -10,7 +10,8 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const SignUp = () => {
     UseTitle('Signup');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser, googleSignIn, loading } = useContext(AuthContext);
+    const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -22,8 +23,10 @@ const SignUp = () => {
     const handleSignUp = (data) => {
         console.log(data);
         setSignUPError('');
+        setLoading(true)
         createUser(data.email, data.password)
             .then(result => {
+                setLoading(false);
                 const user = result.user;
                 console.log(user);
 
@@ -38,7 +41,7 @@ const SignUp = () => {
                             role: role,
                             isSellerVerify: false,
                         };
-
+                        
                         console.log(loginData);
 
                         if (user?.uid) {
@@ -60,9 +63,10 @@ const SignUp = () => {
                         toast.message('User Created Successfully.');
                         navigate(from, { replace: true });
                     })
-                    .catch(err => console.log(err));
+                    .catch(err =>{ console.log(err)});
             })
             .catch(error => {
+              
                 console.log(error)
                 setSignUPError(error.message)
             });
